@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ETL Ventas: Firebase y MySQL</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 1100px; margin: 20px auto; padding: 0 16px; }
+    h1, h2 { margin-bottom: 8px; }
+    fieldset { margin-bottom: 20px; border: 1px solid #ccc; border-radius: 8px; padding: 12px; }
+    legend { font-weight: bold; }
+    input { padding: 6px; margin: 3px; }
+    button { padding: 8px 12px; margin: 3px; cursor: pointer; }
+    .firebase { background: #ffca28; border: 1px solid #c79a00; }
+    .mysql { background: #4fc3f7; border: 1px solid #0288d1; }
+    .ambos { background: #a5d6a7; border: 1px solid #2e7d32; }
+    .tablas { display: flex; gap: 20px; flex-wrap: wrap; }
+    .tablas > div { flex: 1; min-width: 420px; }
+    table { border-collapse: collapse; width: 100%; font-size: 14px; }
+    th, td { border: 1px solid #bbb; padding: 4px 6px; text-align: left; }
+    th { background: #eee; }
+    #log { font-size: 13px; background: #f5f5f5; padding: 10px 10px 10px 28px; max-height: 180px; overflow-y: auto; }
+  </style>
+</head>
+<body>
+  <h1>ETL de ventas</h1>
+
+  <fieldset>
+    <legend>1. Cargar y procesar (GET)</legend>
+    <button id="uploadBtn" class="firebase">Upload Data → Firebase</button>
+    <button id="processBtn" class="mysql">Process Data (Firebase → MySQL)</button>
+  </fieldset>
+
+  <fieldset>
+    <legend>2. Agregar una venta (POST)</legend>
+    <div>
+      <input id="id" type="number" placeholder="ID" />
+      <input id="cliente" placeholder="Cliente" />
+      <input id="juego" placeholder="Juego" />
+      <input id="ciudad" placeholder="Ciudad" />
+      <input id="cantidad" type="number" placeholder="Cantidad" />
+      <input id="precio" type="number" placeholder="Precio" />
+    </div>
+    <div>
+      <button id="addFirebaseBtn" class="firebase">Guardar solo en Firebase</button>
+      <button id="addMysqlBtn" class="mysql">Guardar solo en MySQL</button>
+      <button id="addBothBtn" class="ambos">Guardar en ambos</button>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>3. Ver datos (GET)</legend>
+    <button id="refreshBtn">Actualizar las dos tablas</button>
+    <div class="tablas">
+      <div>
+        <h2>Firebase (datos crudos)</h2>
+        <table>
+          <thead>
+            <tr><th>ID</th><th>Cliente</th><th>Juego</th><th>Ciudad</th><th>Cant.</th><th>Precio</th><th>Total</th></tr>
+          </thead>
+          <tbody id="tablaFirebase"></tbody>
+        </table>
+      </div>
+      <div>
+        <h2>MySQL (datos limpios)</h2>
+        <table>
+          <thead>
+            <tr><th>ID</th><th>Cliente</th><th>Juego</th><th>Ciudad</th><th>Cant.</th><th>Precio</th><th>Total</th></tr>
+          </thead>
+          <tbody id="tablaMysql"></tbody>
+        </table>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Registro de peticiones</legend>
+    <ol id="log"></ol>
+  </fieldset>
+
+  <script src="./js/sql.js"></script>
+</body>
+</html>

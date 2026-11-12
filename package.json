@@ -1,0 +1,28 @@
+{
+  "name": "baseproyecto2026",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.3.0",
+    "firebase-admin": "^13.10.0",
+    "mysql2": "^3.24.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BockyMen/Parcial-de-prueba-DB.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/BockyMen/Parcial-de-prueba-DB/issues"
+  },
+  "homepage": "https://github.com/BockyMen/Parcial-de-prueba-DB#readme"
+}
