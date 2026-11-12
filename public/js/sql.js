@@ -1,22 +1,17 @@
 const log = document.getElementById("log");
 
-/* ───────── Utilidades ───────── */
-
-// Evita que texto con símbolos raros rompa el HTML
 function escapar(texto) {
   return String(texto ?? "-").replace(/[&<>"']/g, (c) => ({
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
   }[c]));
 }
 
-// Anota cada petición en el registro de la página
 function registrar(metodo, ruta, destino, resultado) {
   const li = document.createElement("li");
   li.textContent = `${new Date().toLocaleTimeString()} | ${metodo} ${ruta} → ${destino}: ${resultado}`;
   log.prepend(li);
 }
 
-// Hace cualquier petición (GET o POST) y registra el resultado
 async function llamar(metodo, ruta, destino, body) {
   try {
     const opciones = { method: metodo };
@@ -39,7 +34,6 @@ async function llamar(metodo, ruta, destino, body) {
   }
 }
 
-// Dibuja las filas de una tabla
 function pintarTabla(idTbody, filas) {
   document.getElementById(idTbody).innerHTML = filas
     .map(
@@ -56,7 +50,6 @@ function pintarTabla(idTbody, filas) {
     .join("");
 }
 
-// Lee las dos bases y actualiza las dos tablas
 async function actualizarTablas() {
   const firebase = await llamar("GET", "/etl/firebase/ventas", "Firebase");
   if (firebase) pintarTabla("tablaFirebase", firebase);
@@ -64,8 +57,6 @@ async function actualizarTablas() {
   const mysql = await llamar("GET", "/etl/ventas", "MySQL");
   if (mysql) pintarTabla("tablaMysql", mysql);
 }
-
-/* ───────── Botones GET ───────── */
 
 document.getElementById("uploadBtn").addEventListener("click", async () => {
   await llamar("GET", "/etl/fill-firebase", "Firebase");
@@ -78,8 +69,6 @@ document.getElementById("processBtn").addEventListener("click", async () => {
 });
 
 document.getElementById("refreshBtn").addEventListener("click", actualizarTablas);
-
-/* ───────── Formulario y botones POST ───────── */
 
 function leerFormulario() {
   return {
